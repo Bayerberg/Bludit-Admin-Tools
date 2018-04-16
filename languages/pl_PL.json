@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+    "name": "Admin Tools",
+		"description": "<h4>Narzędzia dla administratorów - 3 paski zawerające twoje ulubione opcje admina (i edytora </h4><strong>Admin Tools - Pasek w Panelu Zarządzania</strong><br/> Podstawowe dane - zawartość, użytkownicy i czas<br/><strong>Admin Tools - Pasek Detali Strony</strong><br/> Metadata strony &amp; przycisk Edytuj stronę <br/><strong>Admin Tools - Panel w Sidebarze </strong><br/> Detale serwisu &amp; wszystkie najczęściej używane przyciski admina."
+	}
+}

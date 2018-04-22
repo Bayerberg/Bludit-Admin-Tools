@@ -1,6 +1,15 @@
 <?php
 class pluginAdminTools extends Plugin {
 private $enable;
+
+public function init()
+{
+  $this->dbFields = array(
+    'displayBarTwo'=>true,
+    'displayBarThree'=>true,
+  );
+}
+
 public function siteHead()
 {
     return '
@@ -17,6 +26,48 @@ public function siteHead()
     ';
 }
 
+
+public function form()
+{
+
+  global $Language;
+  echo'<style>
+    #jsformplugin div {margin:0!important;display:block!important;}
+    #pluginSocialMediaNinja {background:#fff;padding:2rem; margin:0rem; box-sizing: border-box; overflow:hidden; max-width:960px; display:block; width: auto; font-size:14px;}
+    #pluginSocialMediaNinja p {margin:0; padding:0; line-height135%;}
+    .plugin-pod-header {background:#cfd7df; color:#444; padding:2rem 1rem; margin:1rem 1rem 0rem 1rem;box-sizing: border-box;display:block; width: auto}
+    .plugin-pod {border:1px solid #eff3f4; background:#fafbfd; color:#323c46; padding:1rem; margin:0 1rem 1rem 1rem;box-sizing: border-box;display:block; width: auto}
+    #pluginSocialMediaNinja h1, #pluginSocialMediaNinja h2, #pluginSocialMediaNinja h3, #pluginSocialMediaNinja h4, #pluginSocialMediaNinja h5, #pluginSocialMediaNinja h6 {line-height:125%;  padding:0;  font-weight:bold}
+    .plugin-pod-header h1 {color:#222;font-size:24px;margin:0;}
+    .plugin-pod-header h2 {color:#222;font-size:22px;margin:0;}
+    .plugin-pod-header h3 {color:#222;font-size:20px;margin:0;}
+    </style>';
+  echo '<div id="pluginSocialMediaNinja">';
+    echo '<div class="plugin-pod-header">';
+      echo '<h1>Administrator tools</h1>';
+      echo '<h3>3 strips for all your admin (and editor) needs</h3>';
+    echo '</div>';
+    echo '<div class="plugin-pod">';
+      echo '<p><strong>Admin Tools Admin Panel Strip</strong></p>';
+      echo '<p>
+            All your basic data - content, user and time</p>';
+      echo '<hr/>';
+      echo '<p><strong>Admin Tools Page Details Strip</strong></p>';
+      echo '<p>
+            <input type="hidden" name="displayBarTwo" value="0">
+            <input name="displayBarTwo" id="jsdisplayBarTwo" type="checkbox" value="1" '.($this->getDbField('displayBarTwo')?'checked':'').'>
+            Page metadata & Edit page button</p>';
+      echo '<hr/>';
+      echo '<p><strong>Admin Tools Sidebar Panel</strong></p>';
+      echo '<p>
+            <input type="hidden" name="displayBarThree" value="0">
+            <input name="displayBarThree" id="jsdisplayBarThree" type="checkbox" value="1" '.($this->getDbField('displayBarThree')?'checked':'').'>
+            Site details & all your favourite call to action buttons</p>';
+    echo '</div>';
+  echo '</div>';
+
+}
+
 	public function pageEnd()
 	{
     global $Login;
@@ -25,6 +76,7 @@ public function siteHead()
     global $Site;
     global $Page;
     global $Users;
+if ($this->getDbField('displayBarTwo')) {
 		if($Login->role()=='admin') {
       if($Url->whereAmI()=='page') {
 			echo'<div class="admin-tools-plugin">';
@@ -65,9 +117,8 @@ public function siteHead()
           echo'</div>';
       };
 		}
-
-		return false;
 	}
+}
 
   public function siteSidebar()
 	{
@@ -78,6 +129,7 @@ public function siteHead()
     global $Page;
     global $Users;
 		if($Login->role()=='admin') {
+      if ($this->getDbField('displayBarThree')) {
     echo'
     <div class="admin-tools-sidebar-plugin">
     <ul class="info-list">
@@ -113,8 +165,9 @@ public function siteHead()
   </div>
   ';
 }
-
 }
+}
+
 
 public function adminHead()
 {
@@ -125,6 +178,7 @@ public function adminHead()
   global $Page;
   global $dbPages;
   global $dbUsers;
+  global $dbCategories;
 echo '
 <style>
 .admin-tools-strip {background:#6a9333;color:#fff;padding:5px 10px;line-height:125%;font-size:14px;margin:0;}
@@ -152,6 +206,10 @@ echo '
     echo'<span class="area"><strong>'.$L->get('Users').'</strong>:
     '.$L->get('registered').' '.$dbUsers->count().'
     <a href="'.HTML_PATH_ADMIN_ROOT.'add-user" class="cta-btn">'.$L->get('Add a new user').'</a></span>';
+    $categories = $dbCategories->getKeyNameArray();
+    echo'<span class="area"><strong>'.$L->get('Categories').'</strong>:
+    '.$L->get('registered').' '.count($categories).'
+    <a href="'.HTML_PATH_ADMIN_ROOT.'new-category" class="cta-btn">'.$L->get('Add category').'</a></span>';
     }
     ?>
     <script>
@@ -168,5 +226,6 @@ echo '
   </div>
   ';
 }
+
 }
 ?>

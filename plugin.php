@@ -26,7 +26,6 @@ public function siteHead()
     ';
 }
 
-
 public function form()
 {
 
@@ -49,20 +48,13 @@ public function form()
     echo '</div>';
     echo '<div class="plugin-pod">';
       echo '<p><strong>Admin Tools Admin Panel Strip</strong></p>';
-      echo '<p>
-            All your basic data - content, user and time</p>';
+      echo '<p>All your basic data - content, user and time</p>';
       echo '<hr/>';
       echo '<p><strong>Admin Tools Page Details Strip</strong></p>';
-      echo '<p>
-            <input type="hidden" name="displayBarTwo" value="0">
-            <input name="displayBarTwo" id="jsdisplayBarTwo" type="checkbox" value="1" '.($this->getDbField('displayBarTwo')?'checked':'').'>
-            Page metadata & Edit page button</p>';
+      echo '<p> <input type="hidden" name="displayBarTwo" value="0"> <input name="displayBarTwo" id="jsdisplayBarTwo" type="checkbox" value="1" '.($this->getDbField('displayBarTwo')?'checked':'').'> Page metadata & Edit page button</p>';
       echo '<hr/>';
       echo '<p><strong>Admin Tools Sidebar Panel</strong></p>';
-      echo '<p>
-            <input type="hidden" name="displayBarThree" value="0">
-            <input name="displayBarThree" id="jsdisplayBarThree" type="checkbox" value="1" '.($this->getDbField('displayBarThree')?'checked':'').'>
-            Site details & all your favourite call to action buttons</p>';
+      echo '<p><input type="hidden" name="displayBarThree" value="0"> <input name="displayBarThree" id="jsdisplayBarThree" type="checkbox" value="1" '.($this->getDbField('displayBarThree')?'checked':'').'> Site details & all your favourite call to action buttons</p>';
     echo '</div>';
   echo '</div>';
 
